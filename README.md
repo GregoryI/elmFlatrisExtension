@@ -1,3 +1,5 @@
+An extension to Skidding's Flatris using Elm. 
+
 # elm-flatris
 A [Flatris](https://github.com/skidding/flatris) clone in Elm language.
 

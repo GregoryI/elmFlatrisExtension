@@ -22,6 +22,7 @@ app =
       [ Signal.map Actions.Rotate (Keyboard.isDown 38)
       , Signal.map Actions.Accelerate (Keyboard.isDown 40)
       , Signal.map .x Keyboard.arrows |> Signal.map Actions.Move
+      , Signal.map Actions.DropSpacebar (Keyboard.isDown 32)
       ]
     }
 

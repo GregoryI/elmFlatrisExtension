@@ -48,6 +48,7 @@ type alias Model =
   , seed : Random.Seed
   , state : State
   , acceleration : Bool
+  , space : Bool
   , animation : Animation
   , direction : Direction
   , rotation : Rotation
@@ -67,6 +68,7 @@ initial =
   , seed = Random.initialSeed 0
   , state = Stopped
   , acceleration = False
+  , space = False
   , animation = Nothing
   , rotation = Nothing
   , direction = Nothing

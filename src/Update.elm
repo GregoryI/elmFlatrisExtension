@@ -80,7 +80,7 @@ update action model =
       , Effects.none
       )
     UnlockButtons ->
-      ( {model | rotation = Nothing, direction = Nothing, acceleration = False}
+      ( {model | rotation = Nothing, direction = Nothing, acceleration = False, space = False}
       , Effects.none
       )
     Tick time ->
@@ -94,6 +94,11 @@ update action model =
         (model, saveToStorage "elm-flatris" (Model.encode 0 model))
     Saved ->
       (model, Effects.tick Tick)
+    DropSpacebar pressed -> 
+      ( {model | space = pressed}
+      , Effects.none
+      )
+
 
 
 animate : Time -> Model -> Model
@@ -108,6 +113,7 @@ animate time model =
     |> moveTetrimino elapsed
     |> rotateTetrimino elapsed
     |> dropTetrimino elapsed
+    |> spaceDrop
     |> checkEndGame
 
 
@@ -218,6 +224,21 @@ dropTetrimino elapsed model =
         |> clearLines
     else
       {model | position = (x, y')}
+
+spaceDrop : Model -> Model
+spaceDrop model = 
+  let
+    (x, y) = model.position
+  in
+    if model.space then
+      spaceDrop' model x y
+    else model
+
+spaceDrop' : Model -> Int -> Float -> Model
+spaceDrop' model x y =
+  if Grid.collide model.width model.height x (floor y) model.active model.grid then
+    {model | position = (x, y-1), space = False}
+  else spaceDrop' model x (y +1)
 
 
 clearLines : Model -> Model

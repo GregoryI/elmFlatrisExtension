@@ -13,3 +13,4 @@ type Action
   | Move Int
   | Rotate Bool
   | Accelerate Bool
+  | DropSpacebar Bool
